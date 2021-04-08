@@ -3,6 +3,8 @@
 Todo:
 Unprefixed Messages
 Emoji Racing
+Coach
+wyr
 */
 
 
@@ -60,6 +62,12 @@ client.on('ready', () => {
         }
         else if(command === 'help'){
             client.commands.get('help').execute(message, args);
+        }
+        else if(command === 'o7'){
+            client.commands.get('o7').execute(message, args);
+        }
+        else if(command === 'wyr'){
+            client.commands.get('wyr').execute(message, args);
         }
 
     });
