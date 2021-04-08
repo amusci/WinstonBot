@@ -17,6 +17,19 @@ module.exports = {
             "Don’t ever believe an atom, they make up everything.",
             "Be kind to dentists. They have fillings too, you know.",
 
+            "Did you hear about the silk worm race? It ended in a tie.",
+            "I saw an ad for burial plots, but that’s the last thing I need.",
+            "Clones are people two.",
+            "I wanted to learn how to drive a stick shift, but I couldn’t find a manual.",
+            "The machine at the coin factory just suddenly stopped working. It doesn’t make any cents.",
+            "I tried to make a belt out of watches. It was a waist of time.",
+            "Yesterday a clown held the door open for me. It was such a nice jester.",
+            "Becoming a vegetarian is a big missed steak.",
+            "Please don’t make my funeral too early. I’m not really a mourning person.",
+            "Someone stole the police station’s toilets. They have nothing to go on.",
+            "I quit my job at the donut factory. I was fed up with the hole business.",
+            "I’m reading a book about anti-gravity. It’s impossible to put down.",
+
             ];
         var saypuns = puns[Math.floor(Math.random() * puns.length)];
         message.channel.send(saypuns);

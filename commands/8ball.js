@@ -18,7 +18,24 @@ module.exports = {
             "Can't believe you even asked that.",
             "Yes.",
             "No.",
-            "No.. Dear God No.."
+            "No.. Dear God No..",
+
+            "Probably in three... No, four years.",
+            "Just shut the fuck up.",
+            " ..Really?",
+            "Go with your gut.",
+            "No Clue What To Do, Pal.",
+            "After 31 years. sjsjsjsjsjjsjs",
+            "It's not looking too good..",
+            "Do anything but that.",
+            "Thinking takes time, ask again later.",
+            "I mean, if that's what you want to do..",
+            "YES HOLY SHIT!",
+            "You already know the answer is yes, why ask?",
+            "You already know the answer is no, why ask?",
+            "I ALREADY ANSWERED YES.",
+            "I ALREADY ANSWERED NO."
+            
 
             ];
         var magicsaying = sayings[Math.floor(Math.random() * sayings.length)];
