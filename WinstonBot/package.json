@@ -1,0 +1,16 @@
+{
+  "name": "winstonbot",
+  "version": "1.0.0",
+  "description": "multipurposed discord bot",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "node .": "node run main.js"
+  },
+  "author": "Antonio Musciano",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "images-scraper": "^6.3.0"
+  }
+}
