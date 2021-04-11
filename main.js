@@ -4,7 +4,9 @@ Todo:
 Unprefixed Messages
 Emoji Racing
 Coach
-wyr
+wyr json stuff
+truth or dare json stuff
+refine heads or tails
 */
 
 
@@ -34,9 +36,9 @@ client.on('ready', () => {
     client.user.setPresence({
         status: 'online',
         activity: {
-            name: "with Aidan's mom",
+            name: "with Aidan's mom || -help for commands!",
             type: 'STREAMING',
-            url: 'https://www.twitch.tv/monstercat'
+            url: 'https://www.twitch.tv/antoniohatesyou'
         }
     })
 });
@@ -68,6 +70,12 @@ client.on('ready', () => {
         }
         else if(command === 'wyr'){
             client.commands.get('wyr').execute(message, args);
+        }
+        else if(command === 'tord'){
+            client.commands.get('tord').execute(message, args);
+        }
+        else if(command === 'hort'){
+            client.commands.get('hort').execute(message, args);
         }
 
     });

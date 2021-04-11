@@ -10,7 +10,7 @@ module.exports = {
         const sideTwo = '2️⃣';
 
 
-        //needs improvments, would like to tally reactions then say who wins.
+        //needs improvments, would like to tally reactions then say who wins. Global Percentage
         var wyr = [
             "Would you rather lose the ability to read or lose the ability to speak?",
             "Would you rather be covered in fur or covered in scales?",
