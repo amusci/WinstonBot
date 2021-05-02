@@ -3,8 +3,8 @@ module.exports = {
     description: "Heads or Tails!",
     execute(message, args){
 
-        x = (Math.floor.apply(Math.random() * 2) ==0);
-        if (x >= 1)
+        x = Math.floor(Math.random() * 2);
+        if (x == 0)
         
         {
 
@@ -19,6 +19,7 @@ module.exports = {
             message.channel.send('Tails!');
 
         }
+        // message.channel.send(x);
 
         
 
