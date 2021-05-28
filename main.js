@@ -53,8 +53,8 @@ client.on('ready', () => {
         if(command === 'ping'){
             client.commands.get('ping').execute(message, args);
         }
-        else if(command === 'youtube'){
-            client.commands.get('youtube').execute(message, args);
+        else if(command === 'socials'){
+            client.commands.get('socials').execute(message, args);
         }
         else if(command === '8ball'){
             client.commands.get('8ball').execute(message, args);
