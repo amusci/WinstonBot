@@ -13,7 +13,8 @@ module.exports = {
         //needs improvments, would like to tally reactions then say who wins. Global Percentage
 
 
-        const { options } = require('./wyroptions.json');
+        const { options } = require('./json/wyroptions.json');
+        
 
             
         var wyrsay = options[Math.floor(Math.random() * options.length)];

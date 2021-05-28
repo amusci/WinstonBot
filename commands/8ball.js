@@ -3,7 +3,7 @@ module.exports = {
     description: "this is a magic eight ball!",
     execute(message, args){
 
-        const { sayings } = require('./8ballsayings.json');
+        const { sayings } = require('./json/8ballsayings.json');
 
 
         
