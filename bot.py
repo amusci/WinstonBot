@@ -13,7 +13,10 @@ async def on_ready():
     print(f'Success: The bot is now on.')
 
 
-'''commands'''
+'''
+bot.command(aliases = ["foo","bar","fizz","buzz",]) 
+this is a way to have multiple names for your command 
+'''
 
 
 @bot.command()
@@ -23,11 +26,8 @@ async def ping(ctx):
 
 @bot.command()
 async def hort(ctx):
-    random_number = random.randint(0, 10)
-    if random_number > 5:
-        await ctx.send('HEADS')
-    else:
-        await ctx.send('TAILS')
+    result = 'HEADS' if random.randint(0, 10) > 5 else 'TAILS'
+    await ctx.send(result)
 
 
 bot.run(keys1.DISCORD_TOKEN)
