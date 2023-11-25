@@ -6,7 +6,7 @@ Emoji Racing
 Coach
 wyr json stuff
 truth or dare json stuff
-refine heads or tails
+refactor heads or tails
 */
 
 
@@ -16,7 +16,7 @@ const client = new Discord.Client();
 
 const prefix ='-';
 
-const token = 'ODI5NTQyNzY2OTcxMzIyNDI4.YG5p5w.zhdu3Eqy_IwagjvnnY0R092Rvp4'
+const token = 'ODI5NTQyNzY2OTcxMzIyNDI4.GHHjSi.--2fCbgNWpG4AHjJDNtSM8Pwa_MpIncHfnTY7s'
 
 const fs = require('fs');
 
