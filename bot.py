@@ -1,10 +1,10 @@
 import discord
 import responses
 import keys1
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 # Create default intents
-intents = discord.Intents.default()
+intents = discord.Intents.all()
 
 # Create a bot instance with specified command prefix and intents
 bot = commands.Bot(command_prefix='!', intents=intents)
