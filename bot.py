@@ -1,8 +1,13 @@
 import discord
 import responses
 import keys1
+from discord.ext import commands
 
-DISCORD_TOKEN = 'ODI5NTQyNzY2OTcxMzIyNDI4.GHHjSi.--2fCbgNWpG4AHjJDNtSM8Pwa_MpIncHfnTY7s'
+# Create default intents
+intents = discord.Intents.default()
+
+# Create a bot instance with specified command prefix and intents
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 
 async def sendMessage(message, user, private):
@@ -14,11 +19,19 @@ async def sendMessage(message, user, private):
 
 
 def run():
-    intents = discord.Intents.default()
-    client = discord.Client(intents=intents)
-
-    @client.event
+    @bot.event
     async def on():
-        print(f'{client.user} is now on.')
+        print(f'The bot is now on.')
 
-    client.run(DISCORD_TOKEN)
+    @bot.event
+    async def on_message(message):
+        # Ignore messages from the bot itself
+        if message.author == bot.user:
+            return
+
+        username = str(message.author)
+        message = str(message.content)
+        print(f"{message} was from {username} ")
+        # Will only retrieve message if Pinged
+
+    bot.run(keys1.DISCORD_TOKEN)
