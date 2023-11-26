@@ -44,10 +44,18 @@ async def hort(ctx):
 
 @bot.command()
 async def wyr(ctx):
-    # Specify the path to your JSON file
-    file_path = 'wyr.txt'
     # Open the file and read all lines into a list
     with open("wyr.txt") as open_file:
+        lines = open_file.readlines()
+        await ctx.send(lines[random.randint(1, 30)])
+
+
+
+
+@bot.command()
+async def eightball(ctx):
+    # Open the file and read all lines into a list
+    with open("8.txt") as open_file:
         lines = open_file.readlines()
         await ctx.send(lines[random.randint(1, 30)])
 
