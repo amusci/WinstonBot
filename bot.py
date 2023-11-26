@@ -1,6 +1,4 @@
 import discord
-import os
-import asyncio
 import keys1
 import random
 from discord.ext import commands, tasks
@@ -23,14 +21,15 @@ async def on_ready():
     change_status.start()
 
 
-
 '''
 bot.command(aliases = ["foo","bar","fizz","buzz",]) 
 this is a way to have multiple names for your command 
 '''
 
+
 @bot.command()
 async def ping(ctx):
+    # Takes -ping as an input and spits out the latency of the output
     bot_latency = round(bot.latency * 1000)
 
     await ctx.send(f'Pong!  \nResponse time {bot_latency} ms.')
@@ -38,8 +37,19 @@ async def ping(ctx):
 
 @bot.command()
 async def hort(ctx):
+    # Takes -hort as an input and then spits out HEADS or TAILS
     result = 'HEADS' if random.randint(0, 10) > 5 else 'TAILS'
     await ctx.send(result)
+
+
+@bot.command()
+async def wyr(ctx):
+    # Specify the path to your JSON file
+    file_path = 'wyr.txt'
+    # Open the file and read all lines into a list
+    with open("wyr.txt") as open_file:
+        lines = open_file.readlines()
+        await ctx.send(lines[random.randint(1, 30)])
 
 
 bot.run(keys1.DISCORD_TOKEN)
