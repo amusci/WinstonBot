@@ -6,12 +6,10 @@ from discord.ext import commands, tasks
 from itertools import cycle
 from oauth2client.service_account import ServiceAccountCredentials
 
-
 # Create a bot instance with specified command prefix and intents
 bot = commands.Bot(command_prefix='-', intents=discord.Intents.all(), case_insensitive=True)
 
 bot_status = cycle(['HIGH TEMPO DUELS', 'JOIN HTD NOW', 'HTD SEASON 3', 'hort...I SAID HORT'])
-
 
 scopes = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive']
@@ -20,10 +18,7 @@ creds = ServiceAccountCredentials.from_json_keyfile_name(
     'D:\\coding\\WinstonBot\\gkey.json', scopes=scopes)
 
 file = gspread.authorize(creds)
-workbook = file.open("HTD3")
-sheet = workbook.sheet1
-
-
+workbook = file.open("HTDIII")
 
 
 @tasks.loop(seconds=45)
@@ -73,10 +68,29 @@ async def eightball(ctx):
         lines = open_file.readlines()
         await ctx.send(lines[random.randint(1, 30)])
 
+
 @bot.command()
-async def players(ctx):
-    for cell in sheet.range('B4:B15'):
-        await ctx.send(cell.value)
+async def players_d3(ctx):
+    try:
+        # Assuming 'workbook' is properly defined
+        sheet_index = 2  # Index of the sheet, assuming it's the second sheet (change as needed)
+        sheet = workbook.get_worksheet(sheet_index)
+        values = sheet.range('A4:A9')
+
+        # Creating an embed
+        embed = discord.Embed(title="Players in DIVISION III", color=discord.Color.blue())
+
+        # Adding fields for each cell value
+        for i, cell in enumerate(values, start=1):
+            embed.add_field(name=f"Player {i}", value=cell.value, inline=False)
+
+        # Sending the embed
+        await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("An error occurred while fetching data from the worksheet.")
+
 
 
 bot.run(keys1.DISCORD_TOKEN)
