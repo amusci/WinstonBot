@@ -6,10 +6,12 @@ from discord.ext import commands, tasks
 from itertools import cycle
 from oauth2client.service_account import ServiceAccountCredentials
 
+
 # Create a bot instance with specified command prefix and intents
 bot = commands.Bot(command_prefix='-', intents=discord.Intents.all(), case_insensitive=True)
 
 bot_status = cycle(['HIGH TEMPO DUELS', 'JOIN HTD NOW', 'HTD SEASON 3', 'hort...I SAID HORT'])
+
 
 scopes = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive']
@@ -22,6 +24,8 @@ workbook = file.open("HTD3")
 sheet = workbook.sheet1
 
 
+
+
 @tasks.loop(seconds=45)
 async def change_status():
     await bot.change_presence(activity=discord.Game(next(bot_status)))
@@ -32,11 +36,6 @@ async def on_ready():
     print(f'Success: The bot is now on.')
     change_status.start()
 
-@bot.event
-async def on_message(message):
-    if bot.user.mentioned_in(message):
-        # Reply to the mention
-        await message.channel.send(f'ARE YOU DUMB? {message.author.mention}! ARE YOU MAD?')
 
 '''
 bot.command(aliases = ["foo","bar","fizz","buzz",]) 
@@ -73,7 +72,6 @@ async def eightball(ctx):
     with open("8.txt") as open_file:
         lines = open_file.readlines()
         await ctx.send(lines[random.randint(1, 30)])
-
 
 @bot.command()
 async def players(ctx):
