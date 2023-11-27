@@ -32,6 +32,11 @@ async def on_ready():
     print(f'Success: The bot is now on.')
     change_status.start()
 
+@bot.event
+async def on_message(message):
+    if bot.user.mentioned_in(message):
+        # Reply to the mention
+        await message.channel.send(f'ARE YOU DUMB? {message.author.mention}! ARE YOU MAD?')
 
 '''
 bot.command(aliases = ["foo","bar","fizz","buzz",]) 
@@ -72,7 +77,7 @@ async def eightball(ctx):
 
 @bot.command()
 async def players(ctx):
-    for cell in sheet.range('B4:B14'):
+    for cell in sheet.range('B4:B15'):
         await ctx.send(cell.value)
 
 
