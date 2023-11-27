@@ -70,10 +70,52 @@ async def eightball(ctx):
 
 
 @bot.command()
+async def players_d1(ctx):
+    try:
+        sheet_index = 0  # Index of the sheet
+        sheet = workbook.get_worksheet(sheet_index)
+        values = sheet.range('A14:A23')
+
+        # Creating an embed
+        embed = discord.Embed(title="Players in DIVISION I", color=discord.Color.blue())
+
+        # Adding fields for each cell value
+        for i, cell in enumerate(values, start=1):
+            embed.add_field(name=f"Player {i}", value=cell.value, inline=False)
+
+        # Sending the embed
+        await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("An error occurred while fetching data from the worksheet.")
+
+@bot.command()
+async def players_d2(ctx):
+    try:
+        sheet_index = 1  # Index of the sheet
+        sheet = workbook.get_worksheet(sheet_index)
+        values = sheet.range('A4:A11')
+
+        # Creating an embed
+        embed = discord.Embed(title="Players in DIVISION II", color=discord.Color.blue())
+
+        # Adding fields for each cell value
+        for i, cell in enumerate(values, start=1):
+            embed.add_field(name=f"Player {i}", value=cell.value, inline=False)
+
+        # Sending the embed
+        await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("An error occurred while fetching data from the worksheet.")
+
+
+@bot.command()
 async def players_d3(ctx):
     try:
-        # Assuming 'workbook' is properly defined
-        sheet_index = 2  # Index of the sheet, assuming it's the second sheet (change as needed)
+        sheet_index = 2  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
         values = sheet.range('A4:A9')
 
@@ -90,7 +132,6 @@ async def players_d3(ctx):
     except Exception as e:
         print(f"Error: {e}")
         await ctx.send("An error occurred while fetching data from the worksheet.")
-
 
 
 bot.run(keys1.DISCORD_TOKEN)
