@@ -77,7 +77,7 @@ async def players_d1(ctx):
         values = sheet.range('A14:A23')
 
         # Creating an embed
-        embed = discord.Embed(title="Players in DIVISION I", color=discord.Color.blue())
+        embed = discord.Embed(title="Players in DIVISION I", color=discord.Color.red())
 
         # Adding fields for each cell value
         for i, cell in enumerate(values, start=1):
@@ -89,6 +89,7 @@ async def players_d1(ctx):
     except Exception as e:
         print(f"Error: {e}")
         await ctx.send("An error occurred while fetching data from the worksheet.")
+
 
 @bot.command()
 async def players_d2(ctx):
@@ -120,7 +121,7 @@ async def players_d3(ctx):
         values = sheet.range('A4:A9')
 
         # Creating an embed
-        embed = discord.Embed(title="Players in DIVISION III", color=discord.Color.blue())
+        embed = discord.Embed(title="Players in DIVISION III", color=discord.Color.green())
 
         # Adding fields for each cell value
         for i, cell in enumerate(values, start=1):
