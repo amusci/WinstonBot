@@ -58,15 +58,18 @@ async def wyr(ctx):
     # Open the file and read all lines into a list
     with open("wyr.txt") as open_file:
         lines = open_file.readlines()
-        await ctx.send(lines[random.randint(1, 30)])
+        length = len(lines)
+        # print(length)
+        await ctx.send(lines[random.randint(1, length)])
 
 
-@bot.command()
+@bot.command(aliases=["8ball","8"])
 async def eightball(ctx):
     # Open the file and read all lines into a list
     with open("8.txt") as open_file:
         lines = open_file.readlines()
-        await ctx.send(lines[random.randint(1, 30)])
+        length = len(lines)
+        await ctx.send(lines[random.randint(1, length)])
 
 
 @bot.command()
