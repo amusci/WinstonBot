@@ -155,8 +155,50 @@ async def players_d3(ctx):
         print(f"Error: {e}")
         await ctx.send("An error occurred while fetching data from the worksheet.")
 
+@bot.command(aliases=["sd1"])
+async def standings_d1(ctx):
+    try:
+        sheet_index = 3  # Index of the sheet
+        sheet = workbook.get_worksheet(sheet_index)
+        cols = sheet.get_all_values()
+        players = []
+        total = []
+        for col in cols:
+            value = col[9]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Players':
+                break
+            else:
+                players.append(value + ' - ')
 
-@bot.command()
+        for col in cols:
+            value = col[10]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Total Points':
+                break
+            else:
+                total.append(value)
+
+        res = [i + j for i, j in zip(players, total)]
+        print(res)
+
+        # Creating an embed
+        embed = discord.Embed(title="Standings of Division I", color=discord.Color.red())
+
+        # Adding fields for each cell value
+        for i, cell in enumerate(res, start=1):
+            embed.add_field(name=f"Rank {i}", value=cell, inline=False)
+
+        # Sending the embed
+        await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("An error occurred while fetching data from the worksheet.")
+
+@bot.command(aliases=["sd2"])
 async def standings_d2(ctx):
     try:
         sheet_index = 3  # Index of the sheet
@@ -186,7 +228,51 @@ async def standings_d2(ctx):
         print(res)
 
         # Creating an embed
-        embed = discord.Embed(title="Standings of Division II", color=discord.Color.green())
+        embed = discord.Embed(title="Standings of Division II", color=discord.Color.blue())
+
+        # Adding fields for each cell value
+        for i, cell in enumerate(res, start=1):
+            embed.add_field(name=f"Rank {i}", value=cell, inline=False)
+
+        # Sending the embed
+        await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("An error occurred while fetching data from the worksheet.")
+
+
+@bot.command(aliases=["sd3"])
+async def standings_d3(ctx):
+    try:
+        sheet_index = 3  # Index of the sheet
+        sheet = workbook.get_worksheet(sheet_index)
+        cols = sheet.get_all_values()
+        players = []
+        total = []
+        for col in cols:
+            value = col[5]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Players':
+                break
+            else:
+                players.append(value + ' - ')
+
+        for col in cols:
+            value = col[6]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Total Points':
+                break
+            else:
+                total.append(value)
+
+        res = [i + j for i, j in zip(players, total)]
+        print(res)
+
+        # Creating an embed
+        embed = discord.Embed(title="Standings of Division III", color=discord.Color.green())
 
         # Adding fields for each cell value
         for i, cell in enumerate(res, start=1):
