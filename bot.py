@@ -97,7 +97,7 @@ async def players_d1(ctx):
     try:
         sheet_index = 0  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
-        values = sheet.range('A14:A23')
+        values = sheet.range('A14:A25')
 
         # Creating an embed
         embed = discord.Embed(title="Players in DIVISION I", color=discord.Color.red())
@@ -119,7 +119,7 @@ async def players_d2(ctx):
     try:
         sheet_index = 1  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
-        values = sheet.range('A4:A17')
+        values = sheet.range('A4:A16')
 
         # Creating an embed
         embed = discord.Embed(title="Players in DIVISION II", color=discord.Color.blue())
