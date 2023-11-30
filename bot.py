@@ -157,9 +157,9 @@ async def players_d3(ctx):
 
 
 @bot.command()
-async def test(ctx):
+async def standings_d2(ctx):
     try:
-        sheet_index = 1  # Index of the sheet
+        sheet_index = 3  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
         cols = sheet.get_all_values()
         players = []
@@ -168,16 +168,16 @@ async def test(ctx):
             value = col[1]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
                 pass
-            elif value == 'RACING':
+            elif value == 'Players':
                 break
             else:
                 players.append(value + ' - ')
 
         for col in cols:
-            value = col[4]  # Assuming you want to remove leading and trailing whitespaces
+            value = col[2]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
                 pass
-            elif value == 'Best Stunts':
+            elif value == 'Total Points':
                 break
             else:
                 total.append(value)
@@ -185,10 +185,15 @@ async def test(ctx):
         res = [i + j for i, j in zip(players, total)]
         print(res)
 
+        # Creating an embed
+        embed = discord.Embed(title="Standings of Division II", color=discord.Color.green())
 
+        # Adding fields for each cell value
+        for i, cell in enumerate(res, start=1):
+            embed.add_field(name=f"Rank {i}", value=cell, inline=False)
 
-
-
+        # Sending the embed
+        await ctx.send(embed=embed)
 
     except Exception as e:
         print(f"Error: {e}")
