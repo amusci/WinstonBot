@@ -162,7 +162,8 @@ async def test(ctx):
         sheet_index = 1  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
         cols = sheet.get_all_values()
-
+        players = []
+        total = []
         for col in cols:
             value = col[1]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
@@ -170,7 +171,7 @@ async def test(ctx):
             elif value == 'RACING':
                 break
             else:
-                players = value
+                players.append(value + ' - ')
 
         for col in cols:
             value = col[4]  # Assuming you want to remove leading and trailing whitespaces
@@ -179,7 +180,11 @@ async def test(ctx):
             elif value == 'Best Stunts':
                 break
             else:
-                total = value
+                total.append(value)
+
+        res = [i + j for i, j in zip(players, total)]
+        print(res)
+
 
 
 
