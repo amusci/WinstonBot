@@ -45,12 +45,11 @@ async def ping(ctx):
         # Takes -ping as an input and spits out the latency of the output
         bot_latency = round(bot.latency * 1000)
 
-        await ctx.send(f'Pong!  \nResponse time {bot_latency} ms.')\
+        await ctx.send(f'Pong!  \nResponse time {bot_latency} ms.')
 
     except Exception as e:
         print(f"Error: {e}")
         await ctx.send("STOP PINGING PLEASE.")
-
 
 
 @bot.command()
@@ -97,7 +96,6 @@ async def players_d1(ctx):
     try:
         sheet_index = 0  # first sheet
         sheet = workbook.get_worksheet(sheet_index)
-        #values = sheet.range('A14:A25')
         values = sheet.range(f'A1:A{len(sheet.col_values(1))}')
         # Creating an embed
         embed = discord.Embed(title="Players in DIVISION I", color=discord.Color.red())
@@ -119,7 +117,6 @@ async def players_d2(ctx):
     try:
         sheet_index = 1  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
-        #values = sheet.range('A4:A16')
         values = sheet.range(f'A1:A{len(sheet.col_values(1))}')
 
         # Creating an embed
@@ -142,7 +139,6 @@ async def players_d3(ctx):
     try:
         sheet_index = 2  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
-        #values = sheet.range('A4:A9')
         values = sheet.range(f'A1:A{len(sheet.col_values(1))}')
 
         # Creating an embed
@@ -154,6 +150,40 @@ async def players_d3(ctx):
 
         # Sending the embed
         await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("An error occurred while fetching data from the worksheet.")
+
+
+@bot.command()
+async def test(ctx):
+    try:
+        sheet_index = 1  # Index of the sheet
+        sheet = workbook.get_worksheet(sheet_index)
+        cols = sheet.get_all_values()
+
+        for col in cols:
+            value = col[1]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'RACING':
+                break
+            else:
+                players = value
+
+        for col in cols:
+            value = col[4]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Best Stunts':
+                break
+            else:
+                total = value
+
+
+
+
 
     except Exception as e:
         print(f"Error: {e}")
