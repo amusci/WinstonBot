@@ -95,18 +95,18 @@ async def eightball(ctx):
 @bot.command()
 async def players_d1(ctx):
     try:
-        sheet_index = 0  # Index of the sheet
+        sheet_index = 0  # first sheet
         sheet = workbook.get_worksheet(sheet_index)
-        values = sheet.range('A14:A25')
-
+        #values = sheet.range('A14:A25')
+        values = sheet.range(f'A1:A{len(sheet.col_values(1))}')
         # Creating an embed
         embed = discord.Embed(title="Players in DIVISION I", color=discord.Color.red())
 
-        # Adding fields for each cell value
+        # fields for each cell
         for i, cell in enumerate(values, start=1):
             embed.add_field(name=f"Player {i}", value=cell.value, inline=False)
 
-        # Sending the embed
+        # sending the embed
         await ctx.send(embed=embed)
 
     except Exception as e:
@@ -119,7 +119,8 @@ async def players_d2(ctx):
     try:
         sheet_index = 1  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
-        values = sheet.range('A4:A16')
+        #values = sheet.range('A4:A16')
+        values = sheet.range(f'A1:A{len(sheet.col_values(1))}')
 
         # Creating an embed
         embed = discord.Embed(title="Players in DIVISION II", color=discord.Color.blue())
@@ -141,7 +142,8 @@ async def players_d3(ctx):
     try:
         sheet_index = 2  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
-        values = sheet.range('A4:A9')
+        #values = sheet.range('A4:A9')
+        values = sheet.range(f'A1:A{len(sheet.col_values(1))}')
 
         # Creating an embed
         embed = discord.Embed(title="Players in DIVISION III", color=discord.Color.green())
