@@ -155,6 +155,7 @@ async def players_d3(ctx):
         print(f"Error: {e}")
         await ctx.send("An error occurred while fetching data from the worksheet.")
 
+
 @bot.command(aliases=["sd1"])
 async def standings_d1(ctx):
     try:
@@ -182,7 +183,7 @@ async def standings_d1(ctx):
                 total.append(value)
 
         res = [i + j for i, j in zip(players, total)]
-        print(res)
+
 
         # Creating an embed
         embed = discord.Embed(title="Standings of Division I", color=discord.Color.red())
@@ -197,6 +198,7 @@ async def standings_d1(ctx):
     except Exception as e:
         print(f"Error: {e}")
         await ctx.send("An error occurred while fetching data from the worksheet.")
+
 
 @bot.command(aliases=["sd2"])
 async def standings_d2(ctx):
@@ -225,7 +227,7 @@ async def standings_d2(ctx):
                 total.append(value)
 
         res = [i + j for i, j in zip(players, total)]
-        print(res)
+
 
         # Creating an embed
         embed = discord.Embed(title="Standings of Division II", color=discord.Color.blue())
@@ -269,7 +271,6 @@ async def standings_d3(ctx):
                 total.append(value)
 
         res = [i + j for i, j in zip(players, total)]
-        print(res)
 
         # Creating an embed
         embed = discord.Embed(title="Standings of Division III", color=discord.Color.green())
