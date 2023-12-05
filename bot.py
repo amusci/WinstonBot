@@ -190,7 +190,7 @@ async def standings_d1(ctx):
             elif value == 'Sets':
                 break
             else:
-                sets.append(' - ' + value + ' games played')
+                sets.append(' - ' + value + ' sets played')
 
         res = [i + j + k for i, j, k in zip(players, total, sets)]
 
@@ -243,7 +243,7 @@ async def standings_d2(ctx):
             elif value == 'Sets':
                 break
             else:
-                sets.append(' - ' + value + ' games played')
+                sets.append(' - ' + value + ' sets played')
 
         res = [i + j + k for i, j, k in zip(players, total, sets)]
 
@@ -297,7 +297,7 @@ async def standings_d3(ctx):
             elif value == 'Sets':
                 break
             else:
-                sets.append(' - ' + value + ' games played')
+                sets.append(' - ' + value + ' sets played')
 
         res = [i + j + k for i, j, k in zip(players, total, sets)]
 
