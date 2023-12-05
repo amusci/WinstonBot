@@ -164,6 +164,7 @@ async def standings_d1(ctx):
         cols = sheet.get_all_values()
         players = []
         total = []
+        sets = []
         for col in cols:
             value = col[9]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
@@ -182,7 +183,16 @@ async def standings_d1(ctx):
             else:
                 total.append(value)
 
-        res = [i + j for i, j in zip(players, total)]
+        for col in cols:
+            value = col[11]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Sets':
+                break
+            else:
+                sets.append(' - ' + value + ' games played')
+
+        res = [i + j + k for i, j, k in zip(players, total, sets)]
 
 
         # Creating an embed
@@ -208,6 +218,7 @@ async def standings_d2(ctx):
         cols = sheet.get_all_values()
         players = []
         total = []
+        sets = []
         for col in cols:
             value = col[1]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
@@ -225,8 +236,16 @@ async def standings_d2(ctx):
                 break
             else:
                 total.append(value)
+        for col in cols:
+            value = col[3]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Sets':
+                break
+            else:
+                sets.append(' - ' + value + ' games played')
 
-        res = [i + j for i, j in zip(players, total)]
+        res = [i + j + k for i, j, k in zip(players, total, sets)]
 
 
         # Creating an embed
@@ -252,6 +271,7 @@ async def standings_d3(ctx):
         cols = sheet.get_all_values()
         players = []
         total = []
+        sets = []
         for col in cols:
             value = col[5]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
@@ -270,7 +290,16 @@ async def standings_d3(ctx):
             else:
                 total.append(value)
 
-        res = [i + j for i, j in zip(players, total)]
+        for col in cols:
+            value = col[7]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Sets':
+                break
+            else:
+                sets.append(' - ' + value + ' games played')
+
+        res = [i + j + k for i, j, k in zip(players, total, sets)]
 
         # Creating an embed
         embed = discord.Embed(title="Standings of Division III", color=discord.Color.green())
