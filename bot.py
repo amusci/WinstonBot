@@ -65,6 +65,25 @@ async def hort(ctx):
 
 
 @bot.command()
+async def trivia(ctx):
+    try:
+        # Open the file and read all lines into a list
+        with open("trivia.txt") as open_file:
+            lines = open_file.readlines()
+            words_list = []
+            for line in lines:
+                words = line.split()  # Split the line into words
+                words_list.extend(words)  # Extend the list with words from the line
+            print(words_list)
+            my_string = ' '.join(map(str,words_list))
+            await ctx.send(my_string)
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("Relax Pal.")
+
+
+
+@bot.command()
 async def wyr(ctx):
     try:
         # Open the file and read all lines into a list
@@ -72,7 +91,7 @@ async def wyr(ctx):
             lines = open_file.readlines()
             length = len(lines)
             # print(length)
-            await ctx.send(lines[random.randint(1, length - 1)])
+            await ctx.send(lines[random.randint(0, length - 1)])
     except Exception as e:
         print(f"Error: {e}")
         await ctx.send("Relax Pal.")
@@ -197,7 +216,7 @@ async def standings_d1(ctx):
 
         # Creating an embed
         embed = discord.Embed(title="Standings of Division I\n\nSEASON 3 HAS ENDED", color=discord.Color.red())
-bc 
+
         # Adding fields for each cell value
         for i, cell in enumerate(res, start=1):
             embed.add_field(name=f"Rank {i}", value=cell, inline=False)
