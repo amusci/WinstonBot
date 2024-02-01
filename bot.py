@@ -70,13 +70,13 @@ async def trivia(ctx):
         # Open the file and read all lines into a list
         with open("trivia.txt") as open_file:
             lines = open_file.readlines()
-            print(lines)
+            #print(lines)
             length = len(lines)
-            print(length)
+            #print(length)
             random_question = lines[random.randint(0, length - 1)]
-            print(random_question)
+            #print(random_question)
             words_list = random_question.split('?')
-            print(words_list)
+            #print(words_list)
             await ctx.send(words_list[0] + '?')
 
             def check(m):
