@@ -75,12 +75,25 @@ async def trivia(ctx):
                 words = line.split()  # Split the line into words
                 words_list.extend(words)  # Extend the list with words from the line
             print(words_list)
-            my_string = ' '.join(map(str,words_list))
+            my_string = ' '.join(map(str, words_list[:-1]))
             await ctx.send(my_string)
+
+            def check(m):
+                return m.author.id == ctx.author.id
+
+            user_response = await bot.wait_for('message', check=check)
+            print('user response is:' + user_response.content)
+            print(words_list[-1])
+            if user_response.content == words_list[-1]:
+                await ctx.send('CORRECT')
+            else:
+                await ctx.send('are you dumb? this is jigg right? a6? ohhh sup laxical!')
+
+
+
     except Exception as e:
         print(f"Error: {e}")
         await ctx.send("Relax Pal.")
-
 
 
 @bot.command()
@@ -213,7 +226,6 @@ async def standings_d1(ctx):
 
         res = [i + j + k for i, j, k in zip(players, total, sets)]
 
-
         # Creating an embed
         embed = discord.Embed(title="Standings of Division I\n\nSEASON 3 HAS ENDED", color=discord.Color.red())
 
@@ -265,7 +277,6 @@ async def standings_d2(ctx):
                 sets.append(' - ' + value + ' sets played')
 
         res = [i + j + k for i, j, k in zip(players, total, sets)]
-
 
         # Creating an embed
         embed = discord.Embed(title="Standings of Division II\n\nSEASON 3 HAS ENDED.", color=discord.Color.blue())
