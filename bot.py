@@ -70,25 +70,38 @@ async def trivia(ctx):
         # Open the file and read all lines into a list
         with open("trivia.txt") as open_file:
             lines = open_file.readlines()
-            words_list = []
-            for line in lines:
+            print(lines)
+            length = len(lines)
+            random_question = lines[random.randint(0, length - 1)]
+            print(random_question)
+            words_list = random_question.split('?')
+            """for line in random_question:
                 words = line.split()  # Split the line into words
                 words_list.extend(words)  # Extend the list with words from the line
+            """
             print(words_list)
-            my_string = ' '.join(map(str, words_list[:-1]))
-            await ctx.send(my_string)
+            await ctx.send(words_list[0] + '?')
 
             def check(m):
                 return m.author.id == ctx.author.id
 
             user_response = await bot.wait_for('message', check=check)
-            print('user response is:' + user_response.content)
+            print('user response is:' + user_response.content.replace("\n", ""))
             print(words_list[-1])
-            if user_response.content == words_list[-1]:
+
+
+
+            if user_response.content == words_list[-1].replace("\n", ""):
                 await ctx.send('CORRECT')
             else:
-                await ctx.send('are you dumb? this is jigg right? a6? ohhh sup laxical!')
+                await ctx.send('https://youtu.be/-aAku5nXAEI')
 
+            """
+            if user_response.content.replace("\n", "") == words_list[-1]:
+                await ctx.send('CORRECT')
+            elif user_response.content.replace("\n", "") != words_list[-1]:
+
+                await ctx.send('are you dumb? this is jigg right? a6? ohhh sup laxical!')"""
 
 
     except Exception as e:
