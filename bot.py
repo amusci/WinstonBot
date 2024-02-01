@@ -9,7 +9,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 # Create a bot instance with specified command prefix and intents
 bot = commands.Bot(command_prefix='-', intents=discord.Intents.all(), case_insensitive=True)
 
-bot_status = cycle(['HIGH TEMPO DUELS', 'JOIN HTD NOW', 'HTD SEASON 3', 'hort...I SAID HORT'])
+bot_status = cycle(['HIGH TEMPO DUELS', 'HTD IS NOW CLOSED', 'HTD SEASON 3 HAS ENDED', 'hort...I SAID HORT'])
 
 scopes = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive']
@@ -120,7 +120,7 @@ async def players_d2(ctx):
         values = sheet.range(f'A1:A{len(sheet.col_values(1))}')
 
         # Creating an embed
-        embed = discord.Embed(title="Players in DIVISION II", color=discord.Color.blue())
+        embed = discord.Embed(title="Players in DIVISION II\nTHIS SEASON HAS ENDED", color=discord.Color.red())
 
         # Adding fields for each cell value
         for i, cell in enumerate(values, start=1):
@@ -196,8 +196,8 @@ async def standings_d1(ctx):
 
 
         # Creating an embed
-        embed = discord.Embed(title="Standings of Division I", color=discord.Color.red())
-
+        embed = discord.Embed(title="Standings of Division I\n\nSEASON 3 HAS ENDED", color=discord.Color.red())
+bc 
         # Adding fields for each cell value
         for i, cell in enumerate(res, start=1):
             embed.add_field(name=f"Rank {i}", value=cell, inline=False)
@@ -249,7 +249,7 @@ async def standings_d2(ctx):
 
 
         # Creating an embed
-        embed = discord.Embed(title="Standings of Division II", color=discord.Color.blue())
+        embed = discord.Embed(title="Standings of Division II\n\nSEASON 3 HAS ENDED.", color=discord.Color.blue())
 
         # Adding fields for each cell value
         for i, cell in enumerate(res, start=1):
@@ -302,7 +302,7 @@ async def standings_d3(ctx):
         res = [i + j + k for i, j, k in zip(players, total, sets)]
 
         # Creating an embed
-        embed = discord.Embed(title="Standings of Division III", color=discord.Color.green())
+        embed = discord.Embed(title="Standings of Division III\n\nSEASON 3 HAS ENDED", color=discord.Color.green())
 
         # Adding fields for each cell value
         for i, cell in enumerate(res, start=1):
