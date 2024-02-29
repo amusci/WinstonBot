@@ -131,6 +131,18 @@ async def show_stages(ctx):
         print(f"Error: {e}")
         await ctx.send("Relax Pal.")
 
+@bot.command()
+async def show_cars(ctx):
+    try:
+        with open('cars.txt') as open_file:
+            lines = open_file.read()
+
+            embed = discord.Embed(title='CARS FOR HTD SEASON IV', description=lines)
+            await ctx.author.send(embed=embed)
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("Relax Pal.")
+
 
 @bot.command()
 async def players_d1(ctx):
