@@ -174,7 +174,7 @@ async def players_d2(ctx):
         values = sheet.range(f'B4:B9')
 
         # Creating an embed
-        embed = discord.Embed(title="Players in DIVISION II\nTHIS SEASON HAS ENDED", color=discord.Color.red())
+        embed = discord.Embed(title="Players in DIVISION IIbut ", color=discord.Color.red())
 
         # Adding fields for each cell value
         for i, cell in enumerate(values, start=1):
@@ -218,7 +218,7 @@ async def players_d4(ctx):
         values = sheet.range(f'B4:B9')
 
         # Creating an embed
-        embed = discord.Embed(title="Players in DIVISION III", color=discord.Color.green())
+        embed = discord.Embed(title="Players in DIVISION IV", color=discord.Color.green())
 
         # Adding fields for each cell value
         for i, cell in enumerate(values, start=1):
@@ -240,7 +240,7 @@ async def players_d5(ctx):
         values = sheet.range(f'B4:B9')
 
         # Creating an embed
-        embed = discord.Embed(title="Players in DIVISION III", color=discord.Color.green())
+        embed = discord.Embed(title="Players in DIVISION V", color=discord.Color.green())
 
         # Adding fields for each cell value
         for i, cell in enumerate(values, start=1):
@@ -257,15 +257,15 @@ async def players_d5(ctx):
 @bot.command(aliases=["sd1"])
 async def standings_d1(ctx):
     try:
-        sheet_index = 3  # Index of the sheet
+        sheet_index = 5 # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
         cols = sheet.get_all_values()
         players = []
         total = []
         sets = []
         for col in cols:
-            value = col[9]  # Assuming you want to remove leading and trailing whitespaces
-            if not value:
+            value = col[0]  # Assuming you want to remove leading and trailing whitespaces
+            if not value or value == 'D1':
                 pass
             elif value == 'Players':
                 break
@@ -273,7 +273,7 @@ async def standings_d1(ctx):
                 players.append(value + ' - ')
 
         for col in cols:
-            value = col[10]  # Assuming you want to remove leading and trailing whitespaces
+            value = col[1]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
                 pass
             elif value == 'Total Points':
@@ -282,7 +282,7 @@ async def standings_d1(ctx):
                 total.append(value)
 
         for col in cols:
-            value = col[11]  # Assuming you want to remove leading and trailing whitespaces
+            value = col[2]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
                 pass
             elif value == 'Sets':
@@ -293,7 +293,7 @@ async def standings_d1(ctx):
         res = [i + j + k for i, j, k in zip(players, total, sets)]
 
         # Creating an embed
-        embed = discord.Embed(title="Standings of Division I\n\nSEASON 3 HAS ENDED", color=discord.Color.red())
+        embed = discord.Embed(title="Standings of Division I\n", color=discord.Color.red())
 
         # Adding fields for each cell value
         for i, cell in enumerate(res, start=1):
@@ -310,15 +310,15 @@ async def standings_d1(ctx):
 @bot.command(aliases=["sd2"])
 async def standings_d2(ctx):
     try:
-        sheet_index = 3  # Index of the sheet
+        sheet_index = 5  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
         cols = sheet.get_all_values()
         players = []
         total = []
         sets = []
         for col in cols:
-            value = col[1]  # Assuming you want to remove leading and trailing whitespaces
-            if not value:
+            value = col[4]  # Assuming you want to remove leading and trailing whitespaces
+            if not value or value == 'D2':
                 pass
             elif value == 'Players':
                 break
@@ -326,7 +326,7 @@ async def standings_d2(ctx):
                 players.append(value + ' - ')
 
         for col in cols:
-            value = col[2]  # Assuming you want to remove leading and trailing whitespaces
+            value = col[5]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
                 pass
             elif value == 'Total Points':
@@ -334,7 +334,7 @@ async def standings_d2(ctx):
             else:
                 total.append(value)
         for col in cols:
-            value = col[3]  # Assuming you want to remove leading and trailing whitespaces
+            value = col[6]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
                 pass
             elif value == 'Sets':
@@ -345,7 +345,7 @@ async def standings_d2(ctx):
         res = [i + j + k for i, j, k in zip(players, total, sets)]
 
         # Creating an embed
-        embed = discord.Embed(title="Standings of Division II\n\nSEASON 3 HAS ENDED.", color=discord.Color.blue())
+        embed = discord.Embed(title="Standings of Division II\n", color=discord.Color.blue())
 
         # Adding fields for each cell value
         for i, cell in enumerate(res, start=1):
@@ -362,14 +362,14 @@ async def standings_d2(ctx):
 @bot.command(aliases=["sd3"])
 async def standings_d3(ctx):
     try:
-        sheet_index = 3  # Index of the sheet
+        sheet_index = 5  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
         cols = sheet.get_all_values()
         players = []
         total = []
         sets = []
         for col in cols:
-            value = col[5]  # Assuming you want to remove leading and trailing whitespaces
+            value = col[8]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
                 pass
             elif value == 'Players':
@@ -378,7 +378,7 @@ async def standings_d3(ctx):
                 players.append(value + ' - ')
 
         for col in cols:
-            value = col[6]  # Assuming you want to remove leading and trailing whitespaces
+            value = col[9]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
                 pass
             elif value == 'Total Points':
@@ -387,7 +387,7 @@ async def standings_d3(ctx):
                 total.append(value)
 
         for col in cols:
-            value = col[7]  # Assuming you want to remove leading and trailing whitespaces
+            value = col[10]  # Assuming you want to remove leading and trailing whitespaces
             if not value:
                 pass
             elif value == 'Sets':
@@ -398,7 +398,112 @@ async def standings_d3(ctx):
         res = [i + j + k for i, j, k in zip(players, total, sets)]
 
         # Creating an embed
-        embed = discord.Embed(title="Standings of Division III\n\nSEASON 3 HAS ENDED", color=discord.Color.green())
+        embed = discord.Embed(title="Standings of Division III\n", color=discord.Color.green())
+
+        # Adding fields for each cell value
+        for i, cell in enumerate(res, start=1):
+            embed.add_field(name=f"Rank {i}", value=cell, inline=False)
+
+        # Sending the embed
+        await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("An error occurred while fetching data from the worksheet.")
+
+@bot.command(aliases=["sd4"])
+async def standings_d4(ctx):
+    try:
+        sheet_index = 5  # Index of the sheet
+        sheet = workbook.get_worksheet(sheet_index)
+        cols = sheet.get_all_values()
+        players = []
+        total = []
+        sets = []
+        for col in cols:
+            value = col[12]  # Assuming you want to remove leading and trailing whitespaces
+            if not value or value == 'D4':
+                pass
+            elif value == 'Players':
+                break
+            else:
+                players.append(value + ' - ')
+
+        for col in cols:
+            value = col[13]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Total Points':
+                break
+            else:
+                total.append(value)
+
+        for col in cols:
+            value = col[14]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Sets':
+                break
+            else:
+                sets.append(' - ' + value + ' sets played')
+
+        res = [i + j + k for i, j, k in zip(players, total, sets)]
+
+        # Creating an embed
+        embed = discord.Embed(title="Standings of Division III\n", color=discord.Color.gold())
+
+        # Adding fields for each cell value
+        for i, cell in enumerate(res, start=1):
+            embed.add_field(name=f"Rank {i}", value=cell, inline=False)
+
+        # Sending the embed
+        await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("An error occurred while fetching data from the worksheet.")
+
+
+@bot.command(aliases=["sd5"])
+async def standings_d5(ctx):
+    try:
+        sheet_index = 5  # Index of the sheet
+        sheet = workbook.get_worksheet(sheet_index)
+        cols = sheet.get_all_values()
+        players = []
+        total = []
+        sets = []
+        for col in cols:
+            value = col[16]  # Assuming you want to remove leading and trailing whitespaces
+            if not value or value == 'D5':
+                pass
+            elif value == 'Players':
+                break
+            else:
+                players.append(value + ' - ')
+
+        for col in cols:
+            value = col[17]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Total Points':
+                break
+            else:
+                total.append(value)
+
+        for col in cols:
+            value = col[18]  # Assuming you want to remove leading and trailing whitespaces
+            if not value:
+                pass
+            elif value == 'Sets':
+                break
+            else:
+                sets.append(' - ' + value + ' sets played')
+
+        res = [i + j + k for i, j, k in zip(players, total, sets)]
+
+        # Creating an embed
+        embed = discord.Embed(title="Standings of Division III\n", color=discord.Color.magenta())
 
         # Adding fields for each cell value
         for i, cell in enumerate(res, start=1):
