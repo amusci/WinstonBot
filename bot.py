@@ -131,6 +131,7 @@ async def show_stages(ctx):
         print(f"Error: {e}")
         await ctx.send("Relax Pal.")
 
+
 @bot.command()
 async def show_cars(ctx):
     try:
@@ -149,7 +150,7 @@ async def players_d1(ctx):
     try:
         sheet_index = 0  # first sheet
         sheet = workbook.get_worksheet(sheet_index)
-        values = sheet.range(f'A1:A{len(sheet.col_values(1))}')
+        values = sheet.range(f'B4:B9')
         # Creating an embed
         embed = discord.Embed(title="Players in DIVISION I", color=discord.Color.red())
 
@@ -170,7 +171,7 @@ async def players_d2(ctx):
     try:
         sheet_index = 1  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
-        values = sheet.range(f'A1:A{len(sheet.col_values(1))}')
+        values = sheet.range(f'B4:B9')
 
         # Creating an embed
         embed = discord.Embed(title="Players in DIVISION II\nTHIS SEASON HAS ENDED", color=discord.Color.red())
@@ -192,7 +193,51 @@ async def players_d3(ctx):
     try:
         sheet_index = 2  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
-        values = sheet.range(f'A1:A{len(sheet.col_values(1))}')
+        values = sheet.range(f'B4:B9')
+
+        # Creating an embed
+        embed = discord.Embed(title="Players in DIVISION III", color=discord.Color.green())
+
+        # Adding fields for each cell value
+        for i, cell in enumerate(values, start=1):
+            embed.add_field(name=f"Player {i}", value=cell.value, inline=False)
+
+        # Sending the embed
+        await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("An error occurred while fetching data from the worksheet.")
+
+
+@bot.command()
+async def players_d4(ctx):
+    try:
+        sheet_index = 3  # Index of the sheet
+        sheet = workbook.get_worksheet(sheet_index)
+        values = sheet.range(f'B4:B9')
+
+        # Creating an embed
+        embed = discord.Embed(title="Players in DIVISION III", color=discord.Color.green())
+
+        # Adding fields for each cell value
+        for i, cell in enumerate(values, start=1):
+            embed.add_field(name=f"Player {i}", value=cell.value, inline=False)
+
+        # Sending the embed
+        await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("An error occurred while fetching data from the worksheet.")
+
+
+@bot.command()
+async def players_d5(ctx):
+    try:
+        sheet_index = 4  # Index of the sheet
+        sheet = workbook.get_worksheet(sheet_index)
+        values = sheet.range(f'B4:B9')
 
         # Creating an embed
         embed = discord.Embed(title="Players in DIVISION III", color=discord.Color.green())
