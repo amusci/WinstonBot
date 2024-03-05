@@ -9,7 +9,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 # Create a bot instance with specified command prefix and intents
 bot = commands.Bot(command_prefix='-', intents=discord.Intents.all(), case_insensitive=True)
 
-bot_status = cycle(['HIGH TEMPO DUELS', 'HTD IS NOW CLOSED', 'HTD SEASON 3 HAS ENDED', 'hort...I SAID HORT'])
+bot_status = cycle(['HIGH TEMPO DUELS', 'HTD IV IS NOW OPEN', 'HTD SEASON 4 HAS BEGUN', 'hort...I SAID HORT'])
 
 scopes = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive']
@@ -174,7 +174,7 @@ async def players_d2(ctx):
         values = sheet.range(f'B4:B9')
 
         # Creating an embed
-        embed = discord.Embed(title="Players in DIVISION IIbut ", color=discord.Color.red())
+        embed = discord.Embed(title="Players in DIVISION II ", color=discord.Color.red())
 
         # Adding fields for each cell value
         for i, cell in enumerate(values, start=1):
@@ -370,7 +370,7 @@ async def standings_d3(ctx):
         sets = []
         for col in cols:
             value = col[8]  # Assuming you want to remove leading and trailing whitespaces
-            if not value:
+            if not value or value == 'D3':
                 pass
             elif value == 'Players':
                 break
@@ -450,7 +450,7 @@ async def standings_d4(ctx):
         res = [i + j + k for i, j, k in zip(players, total, sets)]
 
         # Creating an embed
-        embed = discord.Embed(title="Standings of Division III\n", color=discord.Color.gold())
+        embed = discord.Embed(title="Standings of Division IV\n", color=discord.Color.gold())
 
         # Adding fields for each cell value
         for i, cell in enumerate(res, start=1):
@@ -503,7 +503,7 @@ async def standings_d5(ctx):
         res = [i + j + k for i, j, k in zip(players, total, sets)]
 
         # Creating an embed
-        embed = discord.Embed(title="Standings of Division III\n", color=discord.Color.magenta())
+        embed = discord.Embed(title="Standings of Division V\n", color=discord.Color.magenta())
 
         # Adding fields for each cell value
         for i, cell in enumerate(res, start=1):
