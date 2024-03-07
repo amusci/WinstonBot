@@ -9,7 +9,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 # Create a bot instance with specified command prefix and intents
 bot = commands.Bot(command_prefix='-', intents=discord.Intents.all(), case_insensitive=True)
 
-bot_status = cycle(['HIGH TEMPO DUELS', 'HTD IV IS NOW OPEN', 'HTD SEASON 4 HAS BEGUN', 'hort...I SAID HORT'])
+bot_status = cycle(['HIGH TEMPO DUELS', 'HTD IV IS NOW OPEN', 'HTD SEASON 4 HAS BEGUN', 'hort...I SAID HORT',
+                    'CHECK -show_stages !!!'])
 
 scopes = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive']
@@ -99,7 +100,6 @@ async def wyr(ctx):
         with open("wyr.txt") as open_file:
             lines = open_file.readlines()
             length = len(lines)
-            # print(length)
             await ctx.send(lines[random.randint(0, length - 1)])
     except Exception as e:
         print(f"Error: {e}")
