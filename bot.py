@@ -1,3 +1,7 @@
+# TODO: IMPLEMENT NFMGUESSR
+
+
+
 import discord
 import keys1
 import random
@@ -119,7 +123,7 @@ async def eightball(ctx):
         await ctx.send("Relax Pal.")
 
 
-@bot.command()
+@bot.command(aliases=["ss"])
 async def show_stages(ctx):
     try:
         with open('stages.txt') as open_file:
@@ -132,7 +136,7 @@ async def show_stages(ctx):
         await ctx.send("Relax Pal.")
 
 
-@bot.command()
+@bot.command(aliases=["sc"])
 async def show_cars(ctx):
     try:
         with open('cars.txt') as open_file:
@@ -145,7 +149,7 @@ async def show_cars(ctx):
         await ctx.send("Relax Pal.")
 
 
-@bot.command()
+@bot.command(aliases=["pd1"])
 async def players_d1(ctx):
     try:
         sheet_index = 0  # first sheet
@@ -166,7 +170,7 @@ async def players_d1(ctx):
         await ctx.send("An error occurred while fetching data from the worksheet.")
 
 
-@bot.command()
+@bot.command(aliases=["pd2"])
 async def players_d2(ctx):
     try:
         sheet_index = 1  # Index of the sheet
@@ -188,7 +192,7 @@ async def players_d2(ctx):
         await ctx.send("An error occurred while fetching data from the worksheet.")
 
 
-@bot.command()
+@bot.command(aliases=["pd3"])
 async def players_d3(ctx):
     try:
         sheet_index = 2  # Index of the sheet
@@ -210,7 +214,7 @@ async def players_d3(ctx):
         await ctx.send("An error occurred while fetching data from the worksheet.")
 
 
-@bot.command()
+@bot.command(aliases=["pd4"])
 async def players_d4(ctx):
     try:
         sheet_index = 3  # Index of the sheet
@@ -232,7 +236,7 @@ async def players_d4(ctx):
         await ctx.send("An error occurred while fetching data from the worksheet.")
 
 
-@bot.command()
+@bot.command(aliases=["pd5"])
 async def players_d5(ctx):
     try:
         sheet_index = 4  # Index of the sheet
