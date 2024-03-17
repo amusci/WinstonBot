@@ -520,5 +520,15 @@ async def standings_d5(ctx):
         print(f"Error: {e}")
         await ctx.send("An error occurred while fetching data from the worksheet.")
 
+@bot.command()
+async def TEMPNAME(ctx):
+    try:
+
+        pass
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("STOP PINGING PLEASE.")
+
 
 bot.run(keys1.DISCORD_TOKEN)
