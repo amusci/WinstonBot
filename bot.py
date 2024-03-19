@@ -1,6 +1,7 @@
 # TODO: IMPLEMENT NFMGUESSR
-
-
+#       SKRIBBLE SCORING SYSTEM
+#       RANDOMLY POST THE IMAGE, WHOEVER GUESSES IT CORRECTLY GETS FULL PTS, REST GET HALF
+import os
 
 import discord
 import keys1
@@ -261,7 +262,7 @@ async def players_d5(ctx):
 @bot.command(aliases=["sd1"])
 async def standings_d1(ctx):
     try:
-        sheet_index = 5 # Index of the sheet
+        sheet_index = 5  # Index of the sheet
         sheet = workbook.get_worksheet(sheet_index)
         cols = sheet.get_all_values()
         players = []
@@ -415,6 +416,7 @@ async def standings_d3(ctx):
         print(f"Error: {e}")
         await ctx.send("An error occurred while fetching data from the worksheet.")
 
+
 @bot.command(aliases=["sd4"])
 async def standings_d4(ctx):
     try:
@@ -520,11 +522,19 @@ async def standings_d5(ctx):
         print(f"Error: {e}")
         await ctx.send("An error occurred while fetching data from the worksheet.")
 
+
 @bot.command()
 async def TEMPNAME(ctx):
     try:
+        folder_path = keys1.FILE_PATH
+        folders = [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
+        the_chosen_folder = random.choice(folders)
+        files_in_folder = os.listdir(os.path.join(folder_path, the_chosen_folder))
+        image_files = [f for f in files_in_folder if f.endswith(('.jpg', '.jpeg', '.png', '.gif'))]
+        random_image = random.choice(image_files)
 
-        pass
+        await ctx.send(file=discord.File(os.path.join(folder_path, the_chosen_folder, random_image)))
+
 
     except Exception as e:
         print(f"Error: {e}")
