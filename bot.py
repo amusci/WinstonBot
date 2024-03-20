@@ -562,6 +562,13 @@ async def TEMPNAME(ctx):
                 update_score(username, 100)
                 break  # Exit the loop if the correct answer is provided
 
+        # Send scores table as an embed
+        scores = load_scores()
+        scores_table = '\n'.join([f"{username}: {score}" for username, score in scores.items()])
+        embed_scores = discord.Embed(title="NFMGUESSR SCORES", description=scores_table, color=0x00ff00)
+        await ctx.send(embed=embed_scores)
+
+
     except asyncio.TimeoutError:
         await ctx.send("Time's up! Try again later.")
     except Exception as e:
@@ -577,10 +584,10 @@ def load_scores():
     return scores
 
 
-
 def save_scores(scores):
     with open(keys1.SCORES_FILE, 'w') as file:
         json.dump(scores, file)
+
 
 def update_score(username, points):
     scores = load_scores()
