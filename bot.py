@@ -1,6 +1,7 @@
 # TODO: IMPLEMENT NFMGUESSR
 #       SKRIBBLE SCORING SYSTEM
 #       RANDOMLY POST THE IMAGE, WHOEVER GUESSES IT CORRECTLY GETS FULL PTS, REST GET HALF
+import asyncio
 import json
 import os
 import re
@@ -549,26 +550,32 @@ async def TEMPNAME(ctx):
         def check(message):
             return message.channel == ctx.channel and message.author != bot.user
 
-        user_response = await bot.wait_for('message', check=check, timeout=60)  # Wait for 60 seconds
+        while True:
+            user_response = await bot.wait_for('message', check=check, timeout=60)  # Wait for 60 seconds
 
-        # Check if the user's message matches the name of the image
-        if user_response.content.lower() == random_image.split('.')[0].lower():
-            await user_response.channel.send("yeah yeah yeah we paid")
+            # Check if the user's message matches the name of the image
+            if user_response.content.lower() == random_image.split('.')[0].lower():
+                await user_response.channel.send("yeah yeah yeah we paid")
 
-            # Update user's score
-            username = str(user_response.author)
-            update_score(username, 100)
+                # Update user's score
+                username = str(user_response.author)
+                update_score(username, 100)
+                break  # Exit the loop if the correct answer is provided
 
+    except asyncio.TimeoutError:
+        await ctx.send("Time's up! Try again later.")
     except Exception as e:
         print(f"Error: {e}")
         await ctx.send("STOP PINGING PLEASE.")
 
 
 def load_scores():
-    if os.path.exists(keys1.SCORES_FILE):
+    scores = {}
+    if os.path.exists(keys1.SCORES_FILE) and os.path.getsize(keys1.SCORES_FILE) > 0:
         with open(keys1.SCORES_FILE, 'r') as file:
-            return json.load(file)
-    return {}
+            scores = json.load(file)
+    return scores
+
 
 
 def save_scores(scores):
