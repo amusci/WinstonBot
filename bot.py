@@ -538,6 +538,7 @@ async def TEMPNAME(ctx):
         embed = discord.Embed(title="NFMGUESSR", description="What is the name of this stage? :", color=0x00ff00)
         file_path = os.path.join(folder_path, the_chosen_folder, random_image)
 
+
         # Attach the image to the embed
         file = discord.File(file_path, filename=random_image)
         embed.set_image(url=f"attachment://{random_image}")
@@ -551,14 +552,14 @@ async def TEMPNAME(ctx):
             return message.channel == ctx.channel and message.author != bot.user
 
         while True:
-            user_response = await bot.wait_for('message', check=check, timeout=60)  # Wait for 60 seconds
+            user_response = await bot.wait_for('message', check=check, timeout=60)
+            username = str(user_response.author)# Wait for 60 seconds
 
             # Check if the user's message matches the name of the image
             if user_response.content.lower() == random_image.split('.')[0].lower():
-                await user_response.channel.send("yeah yeah yeah we paid")
+                await user_response.channel.send(username + " answered correctly! +100")
 
                 # Update user's score
-                username = str(user_response.author)
                 update_score(username, 100)
                 break  # Exit the loop if the correct answer is provided
 
