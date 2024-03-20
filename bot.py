@@ -1,6 +1,7 @@
 # TODO: IMPLEMENT NFMGUESSR
 #       SKRIBBLE SCORING SYSTEM
 #       RANDOMLY POST THE IMAGE, WHOEVER GUESSES IT CORRECTLY GETS FULL PTS, REST GET HALF
+import json
 import os
 import re
 
@@ -554,9 +555,30 @@ async def TEMPNAME(ctx):
         if user_response.content.lower() == random_image.split('.')[0].lower():
             await user_response.channel.send("yeah yeah yeah we paid")
 
+            # Update user's score
+            username = str(user_response.author)
+            update_score(username, 100)
+
     except Exception as e:
         print(f"Error: {e}")
         await ctx.send("STOP PINGING PLEASE.")
+
+
+def load_scores():
+    if os.path.exists(keys1.SCORES_FILE):
+        with open(keys1.SCORES_FILE, 'r') as file:
+            return json.load(file)
+    return {}
+
+
+def save_scores(scores):
+    with open(keys1.SCORES_FILE, 'w') as file:
+        json.dump(scores, file)
+
+def update_score(username, points):
+    scores = load_scores()
+    scores[username] = scores.get(username, 0) + points
+    save_scores(scores)
 
 
 bot.run(keys1.DISCORD_TOKEN)
