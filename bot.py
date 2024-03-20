@@ -2,6 +2,7 @@
 #       SKRIBBLE SCORING SYSTEM
 #       RANDOMLY POST THE IMAGE, WHOEVER GUESSES IT CORRECTLY GETS FULL PTS, REST GET HALF
 import os
+import re
 
 import discord
 import keys1
@@ -532,9 +533,26 @@ async def TEMPNAME(ctx):
         files_in_folder = os.listdir(os.path.join(folder_path, the_chosen_folder))
         image_files = [f for f in files_in_folder if f.endswith(('.jpg', '.jpeg', '.png', '.gif'))]
         random_image = random.choice(image_files)
+        embed = discord.Embed(title="NFMGUESSR", description="What is the name of this stage? :", color=0x00ff00)
+        file_path = os.path.join(folder_path, the_chosen_folder, random_image)
 
-        await ctx.send(file=discord.File(os.path.join(folder_path, the_chosen_folder, random_image)))
+        # Attach the image to the embed
+        file = discord.File(file_path, filename=random_image)
+        embed.set_image(url=f"attachment://{random_image}")
 
+        # Send the embed with the attached image
+        message = await ctx.send(embed=embed, file=file)
+        print(random_image.split('.')[0])
+
+        # Wait for a message from any user in the same channel
+        def check(message):
+            return message.channel == ctx.channel and message.author != bot.user
+
+        user_response = await bot.wait_for('message', check=check, timeout=60)  # Wait for 60 seconds
+
+        # Check if the user's message matches the name of the image
+        if user_response.content.lower() == random_image.split('.')[0].lower():
+            await user_response.channel.send("yeah yeah yeah we paid")
 
     except Exception as e:
         print(f"Error: {e}")
