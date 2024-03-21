@@ -527,7 +527,7 @@ async def standings_d5(ctx):
 
 
 @bot.command()
-async def TEMPNAME(ctx):
+async def NFMGUESSR(ctx):
     try:
         folder_path = keys1.FILE_PATH
         folders = [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
