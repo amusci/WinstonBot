@@ -527,6 +527,29 @@ async def standings_d5(ctx):
 
 
 @bot.command()
+async def NFMG_RULES(ctx):
+    try:
+        embed = discord.Embed(
+            title="HOW TO PLAY NFMGUESSR",
+
+            color=discord.Color.red()
+        )
+        embed.add_field(name="TIP 1", value="WINSTON WILL NOT UNDERSTAND ANSWERS THAT INCLUDE SPACES.", inline=False)
+        embed.add_field(name="TIP 2", value="If you believe it is a NFM1 stage, type nfm1-stage#.", inline=False)
+        embed.add_field(name="TIP 3", value="If you believe it is a NFM2 stage, type nfm2-stage#.", inline=False)
+        embed.add_field(name="TIP 4", value="If you believe it is a ELO stage, type the name of the stage. \n\ni.e.\n "
+                                            "blitzboulevard,trophies,realitybender", inline=False)
+
+        # Add more rules as needed
+
+        await ctx.send(embed=embed)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        await ctx.send("STOP PINGING PLEASE.")
+
+
+@bot.command()
 async def NFMGUESSR(ctx):
     try:
         folder_path = keys1.FILE_PATH
@@ -537,7 +560,6 @@ async def NFMGUESSR(ctx):
         random_image = random.choice(image_files)
         embed = discord.Embed(title="NFMGUESSR", description="What is the name of this stage? :", color=0x00ff00)
         file_path = os.path.join(folder_path, the_chosen_folder, random_image)
-
 
         # Attach the image to the embed
         file = discord.File(file_path, filename=random_image)
@@ -553,7 +575,7 @@ async def NFMGUESSR(ctx):
 
         while True:
             user_response = await bot.wait_for('message', check=check, timeout=60)
-            username = str(user_response.author)# Wait for 60 seconds
+            username = str(user_response.author)  # Wait for 60 seconds
 
             # Check if the user's message matches the name of the image
             if user_response.content.lower() == random_image.split('.')[0].lower():
