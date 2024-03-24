@@ -535,7 +535,7 @@ async def NFMG_RULES(ctx):
             color=discord.Color.red()
         )
         embed.add_field(name="TIP 1", value="WINSTON WILL NOT UNDERSTAND ANSWERS THAT INCLUDE SPACES.", inline=False)
-        embed.add_field(name="TIP 2", value="If you believe it is a NFM1 stage, type nfm1-stage\n\ni.e.\n "
+        embed.add_field(name="TIP 2", value="If you believe it is a NFM1 stage, type nfm1-stage#\n\ni.e.\n "
                                             "nfm1-stage9,nfm1-stage4", inline=False)
         embed.add_field(name="TIP 3", value="If you believe it is a NFM2 stage, type nfm2-stage#\n\ni.e.\n "
                                             "nfm2-stage9,nfm2-stage16", inline=False)
