@@ -1,11 +1,11 @@
 # TODO: IMPLEMENT NFMGUESSR
 #       SKRIBBLE SCORING SYSTEM
 #       RANDOMLY POST THE IMAGE, WHOEVER GUESSES IT CORRECTLY GETS FULL PTS, REST GET HALF
+from PIL import Image
 import json
 import os
 import time
 import asyncio
-
 import discord
 import keys1
 import random
@@ -555,13 +555,19 @@ async def NFMG_RULES(ctx):
 @bot.command()
 async def NFMGUESSR(ctx):
     try:
-        # Check if the command is on cooldown for the user
+
+
+
+        # cooldown check
         if ctx.author.id in cooldowns and cooldowns[ctx.author.id] > time.time():
-            await ctx.send("chill out retard what is wrong with you")
+            cooldowns[ctx.author.id] += 5
+            await ctx.send("chill out retard WE ARE GOING TO GET RATE LIMITED PLEAAAAAASE")
             return
 
         # Set the command cooldown for the user
         cooldowns[ctx.author.id] = time.time() + 5
+        print(time.time())
+        print(cooldowns[ctx.author.id])
 
         folder_path = keys1.FILE_PATH
         folders = [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
@@ -572,7 +578,18 @@ async def NFMGUESSR(ctx):
         embed = discord.Embed(title="NFMGUESSR", description="What is the name of this stage? :", color=0x00ff00)
         file_path = os.path.join(folder_path, the_chosen_folder, random_image)
 
-        file = discord.File(file_path, filename=random_image)
+
+        with Image.open(file_path) as img:
+            # Randomly flip the image horizontally with a 50% chance
+            if random.random() < 0.5:
+                print('MIRRORED')
+                img = img.transpose(Image.FLIP_LEFT_RIGHT)
+
+            # Save the modified image to a temporary file
+            temp_file_path = "temp_image.png"
+            img.save(temp_file_path)
+
+        file = discord.File(temp_file_path, filename=random_image)
         embed.set_image(url=f"attachment://{random_image}")
 
         await asyncio.sleep(1)
@@ -588,12 +605,16 @@ async def NFMGUESSR(ctx):
             username = str(user_response.author)  # Wait for 60 seconds
 
             # Check if the user's message matches the name of the image
-            if user_response.content.lower() == random_image.split('.')[0].lower():
+            if user_response.content.lower() == the_chosen_folder.lower():
                 await user_response.channel.send(username + " answered correctly! +100")
 
                 # Update user's score
                 update_score(username, 100)
                 break  # Exit the loop if the correct answer is provided
+            if user_response.content.lower() == 'skip':
+                pass
+
+
 
         # Send scores table as an embed
         scores = load_scores()
@@ -602,7 +623,8 @@ async def NFMGUESSR(ctx):
         await ctx.send(embed=embed_scores)
 
     except asyncio.TimeoutError:
-        await ctx.send("Time's up! Type -nfmguessr to try again!")
+        await ctx.send(f"Time's up! Answer was {the_chosen_folder}! Type -nfmguessr to try again!")
+
     except Exception as e:
         print(f"Error: {e}")
         await ctx.send("STOP PINGING PLEASE.")
