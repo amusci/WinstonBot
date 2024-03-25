@@ -1,10 +1,10 @@
 # TODO: IMPLEMENT NFMGUESSR
 #       SKRIBBLE SCORING SYSTEM
 #       RANDOMLY POST THE IMAGE, WHOEVER GUESSES IT CORRECTLY GETS FULL PTS, REST GET HALF
-import asyncio
 import json
 import os
-import re
+import time
+import asyncio
 
 import discord
 import keys1
@@ -28,6 +28,7 @@ creds = ServiceAccountCredentials.from_json_keyfile_name(
 
 file = gspread.authorize(creds)
 workbook = file.open("HTDIV")
+cooldowns = {}
 
 
 @tasks.loop(seconds=45)
@@ -554,6 +555,14 @@ async def NFMG_RULES(ctx):
 @bot.command()
 async def NFMGUESSR(ctx):
     try:
+        # Check if the command is on cooldown for the user
+        if ctx.author.id in cooldowns and cooldowns[ctx.author.id] > time.time():
+            await ctx.send("chill out retard what is wrong with you")
+            return
+
+        # Set the command cooldown for the user
+        cooldowns[ctx.author.id] = time.time() + 5
+
         folder_path = keys1.FILE_PATH
         folders = [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
         the_chosen_folder = random.choice(folders)
@@ -563,11 +572,10 @@ async def NFMGUESSR(ctx):
         embed = discord.Embed(title="NFMGUESSR", description="What is the name of this stage? :", color=0x00ff00)
         file_path = os.path.join(folder_path, the_chosen_folder, random_image)
 
-        # Attach the image to the embed
         file = discord.File(file_path, filename=random_image)
         embed.set_image(url=f"attachment://{random_image}")
 
-        # Send the embed with the attached image
+        await asyncio.sleep(1)
         message = await ctx.send(embed=embed, file=file)
         print(random_image.split('.')[0])
 
@@ -593,9 +601,8 @@ async def NFMGUESSR(ctx):
         embed_scores = discord.Embed(title="NFMGUESSR SCORES", description=scores_table, color=0x00ff00)
         await ctx.send(embed=embed_scores)
 
-
     except asyncio.TimeoutError:
-        await ctx.send("Time's up! Try again later.")
+        await ctx.send("Time's up! Type -nfmguessr to try again!")
     except Exception as e:
         print(f"Error: {e}")
         await ctx.send("STOP PINGING PLEASE.")
