@@ -595,8 +595,8 @@ async def NFMGUESSR(ctx):
             return message.channel == ctx.channel and message.author != bot.user
 
         while True:
-            user_response = await bot.wait_for('message', check=check, timeout=60)
-            username = str(user_response.author)  # Wait for 60 seconds
+            user_response = await bot.wait_for('message', check=check, timeout=15)
+            username = str(user_response.author)
 
             if user_response.content.lower() == the_chosen_folder.lower():
                 await user_response.channel.send(username + " answered correctly! +100")
