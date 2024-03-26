@@ -554,80 +554,60 @@ async def NFMG_RULES(ctx):
 
 @bot.command()
 async def NFMGUESSR(ctx):
-    try:
+    async def run_NFMGUESSR():
+        try:
+            # Set the command cooldown for the user
+            cooldowns[ctx.author.id] = time.time() + 5
 
+            folder_path = keys1.FILE_PATH
+            folders = [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
+            the_chosen_folder = random.choice(folders)
+            files_in_folder = os.listdir(os.path.join(folder_path, the_chosen_folder))
+            image_files = [f for f in files_in_folder if f.endswith(('.jpg', '.jpeg', '.png', '.gif'))]
+            random_image = random.choice(image_files)
+            embed = discord.Embed(title="NFMGUESSR", description="What is the name of this stage? :", color=0x00ff00)
+            file_path = os.path.join(folder_path, the_chosen_folder, random_image)
 
+            with Image.open(file_path) as img:
+                # mirror image 50%
+                if random.random() < 0.5:
+                    print('MIRRORED')
+                    img = img.transpose(Image.FLIP_LEFT_RIGHT)
 
-        # cooldown check
-        if ctx.author.id in cooldowns and cooldowns[ctx.author.id] > time.time():
-            cooldowns[ctx.author.id] += 5
-            await ctx.send("chill out retard WE ARE GOING TO GET RATE LIMITED PLEAAAAAASE")
-            return
+                temp_file_path = "temp_image.png"
+                img.save(temp_file_path)
 
-        # Set the command cooldown for the user
-        cooldowns[ctx.author.id] = time.time() + 5
-        print(time.time())
-        print(cooldowns[ctx.author.id])
+            file = discord.File(temp_file_path, filename=random_image)
+            embed.set_image(url=f"attachment://{random_image}")
 
-        folder_path = keys1.FILE_PATH
-        folders = [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
-        the_chosen_folder = random.choice(folders)
-        files_in_folder = os.listdir(os.path.join(folder_path, the_chosen_folder))
-        image_files = [f for f in files_in_folder if f.endswith(('.jpg', '.jpeg', '.png', '.gif'))]
-        random_image = random.choice(image_files)
-        embed = discord.Embed(title="NFMGUESSR", description="What is the name of this stage? :", color=0x00ff00)
-        file_path = os.path.join(folder_path, the_chosen_folder, random_image)
+            await asyncio.sleep(1)
+            message = await ctx.send(embed=embed, file=file)
+            print(random_image.split('.')[0])
 
+            def check(message):
+                return message.channel == ctx.channel and message.author != bot.user
 
-        with Image.open(file_path) as img:
-            # Randomly flip the image horizontally with a 50% chance
-            if random.random() < 0.5:
-                print('MIRRORED')
-                img = img.transpose(Image.FLIP_LEFT_RIGHT)
+            while True:
+                user_response = await bot.wait_for('message', check=check, timeout=60)
+                username = str(user_response.author)
 
-            # Save the modified image to a temporary file
-            temp_file_path = "temp_image.png"
-            img.save(temp_file_path)
+                if user_response.content.lower() == the_chosen_folder.lower():
+                    await user_response.channel.send(username + " answered correctly! +100")
 
-        file = discord.File(temp_file_path, filename=random_image)
-        embed.set_image(url=f"attachment://{random_image}")
+                    update_score(username, 100)
+                    return
+                elif user_response.content.lower() == 'skip':
+                    await run_NFMGUESSR()  # if skip run again
 
-        await asyncio.sleep(1)
-        message = await ctx.send(embed=embed, file=file)
-        print(random_image.split('.')[0])
+            scores = load_scores()
+            scores_table = '\n'.join([f"{username}: {score}" for username, score in scores.items()])
+            embed_scores = discord.Embed(title="NFMGUESSR SCORES", description=scores_table, color=0x00ff00)
+            await ctx.send(embed=embed_scores)
 
-        # Wait for a message from any user in the same channel
-        def check(message):
-            return message.channel == ctx.channel and message.author != bot.user
+        except asyncio.TimeoutError:
+            await ctx.send(f"Time's up! Answer was {the_chosen_folder}! Type -nfmguessr to try again!")
 
-        while True:
-            user_response = await bot.wait_for('message', check=check, timeout=60)
-            username = str(user_response.author)  # Wait for 60 seconds
-
-            # Check if the user's message matches the name of the image
-            if user_response.content.lower() == the_chosen_folder.lower():
-                await user_response.channel.send(username + " answered correctly! +100")
-
-                # Update user's score
-                update_score(username, 100)
-                break  # Exit the loop if the correct answer is provided
-            if user_response.content.lower() == 'skip':
-                pass
-
-
-
-        # Send scores table as an embed
-        scores = load_scores()
-        scores_table = '\n'.join([f"{username}: {score}" for username, score in scores.items()])
-        embed_scores = discord.Embed(title="NFMGUESSR SCORES", description=scores_table, color=0x00ff00)
-        await ctx.send(embed=embed_scores)
-
-    except asyncio.TimeoutError:
-        await ctx.send(f"Time's up! Answer was {the_chosen_folder}! Type -nfmguessr to try again!")
-
-    except Exception as e:
-        print(f"Error: {e}")
-        await ctx.send("STOP PINGING PLEASE.")
+    await run_NFMGUESSR()
 
 
 def load_scores():
