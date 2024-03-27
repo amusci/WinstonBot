@@ -591,6 +591,7 @@ async def NFMGUESSR(ctx):
         await asyncio.sleep(1)
         message = await ctx.send(embed=embed, file=file)
         print(random_image.split('.')[0])
+
         def check(message):
             return message.channel == ctx.channel and message.author != bot.user
 
@@ -636,6 +637,25 @@ def update_score(username, points):
     scores = load_scores()
     scores[username] = scores.get(username, 0) + points
     save_scores(scores)
+
+
+@bot.command()
+async def going_bananas(ctx):
+
+    # War declaration
+    user_id = keys1.BANANAUID  # uid
+    member = await bot.fetch_user(user_id)
+    if member:
+        try:
+            await member.send("🍌")
+            await ctx.send(f"SENDING BANANAS TO {member.name.upper()}!")
+        except discord.Forbidden:
+            await ctx.send("cant dm")
+        except Exception as e:
+            print(f"Error: {e}")
+            await ctx.send("error")
+    else:
+        await ctx.send("wrong uid")
 
 
 bot.run(keys1.DISCORD_TOKEN)
